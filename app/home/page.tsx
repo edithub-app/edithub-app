@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { ArrowRight, Sparkles, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from '@/components/site/navbar';
+import FeedRow from '@/components/site/feed-row';
 import { useAdminAuth } from '@/hooks/use-admin-auth';
-import { mockScenepacks, mockAssets } from '@/lib/mock-data';
+import { mockScenepacks, mockAssets, mockPresets, mockAudios, formatCount } from '@/lib/mock-data';
 
 function greeting(): string {
   const h = new Date().getHours();
@@ -69,6 +70,24 @@ export default function HomePage() {
       badge: 'Asset',
       meta: timeAgo(a.created_at),
       created_at: a.created_at,
+    })),
+    ...mockPresets.map((p) => ({
+      id: `p-${p.id}`,
+      title: p.title,
+      thumbnail_url: p.thumbnail_url,
+      href: `/presets/${p.id}`,
+      badge: 'Preset',
+      meta: timeAgo(p.created_at),
+      created_at: p.created_at,
+    })),
+    ...mockAudios.map((au) => ({
+      id: `au-${au.id}`,
+      title: au.title,
+      thumbnail_url: au.thumbnail_url,
+      href: `/audios/${au.id}`,
+      badge: 'Audio',
+      meta: timeAgo(au.created_at),
+      created_at: au.created_at,
     })),
   ]
     .sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at))
@@ -196,6 +215,78 @@ export default function HomePage() {
                 </Link>
               </div>
             )}
+          </div>
+
+          {/* Scenepacks row */}
+          <div className="mt-10">
+            <FeedRow
+              title="Scenepacks"
+              subtitle="Clip packs from your favourite movies and shows"
+              aspect="16/10"
+              cardWidth={280}
+              items={mockScenepacks.map((s) => ({
+                id: s.id,
+                title: s.title,
+                thumbnail_url: s.thumbnail_url,
+                href: `/scenepacks/${s.id}`,
+                badge: `${s.clip_count} clips`,
+                meta: `${formatCount(s.download_count)} downloads`,
+              }))}
+            />
+          </div>
+
+          {/* Assets row */}
+          <div className="mt-10">
+            <FeedRow
+              title="Assets"
+              subtitle="Free overlays, PNGs, and graphics"
+              aspect="4/5"
+              cardWidth={240}
+              items={mockAssets.map((a) => ({
+                id: a.id,
+                title: a.title,
+                thumbnail_url: a.thumbnail_url,
+                href: `/assets/${a.id}`,
+                badge: a.category,
+                meta: `${formatCount(a.download_count)} downloads`,
+              }))}
+            />
+          </div>
+
+          {/* Presets row */}
+          <div className="mt-10">
+            <FeedRow
+              title="Presets"
+              subtitle="Free colourings, shakes, and transitions"
+              aspect="4/5"
+              cardWidth={240}
+              items={mockPresets.map((p) => ({
+                id: p.id,
+                title: p.title,
+                thumbnail_url: p.thumbnail_url,
+                href: `/presets/${p.id}`,
+                badge: p.category,
+                meta: `${formatCount(p.download_count)} downloads`,
+              }))}
+            />
+          </div>
+
+          {/* Audio row */}
+          <div className="mt-10">
+            <FeedRow
+              title="Audio"
+              subtitle="Free songs, SFX, loops, and beats"
+              aspect="4/5"
+              cardWidth={240}
+              items={mockAudios.map((au) => ({
+                id: au.id,
+                title: au.title,
+                thumbnail_url: au.thumbnail_url,
+                href: `/audios/${au.id}`,
+                badge: au.category,
+                meta: `${formatCount(au.download_count)} downloads`,
+              }))}
+            />
           </div>
         </div>
       </main>

@@ -26,8 +26,8 @@ export default function Hero() {
           className="mt-6 text-[18px] md:text-[19px] text-muted-foreground leading-relaxed max-w-xl mx-auto text-balance animate-fade-up"
           style={{ animationDelay: '80ms' }}
         >
-          Discover free scenepacks, buy premium editing assets, and request
-          clips from your favourite movies and shows — all in one place.
+          Discover free scenepacks, overlays, presets, and audio for your
+          edits — all in one place.
         </p>
 
         {/* CTAs */}
@@ -36,17 +36,17 @@ export default function Hero() {
           style={{ animationDelay: '160ms' }}
         >
           <Link
-            href="/assets"
+            href="/scenepacks"
             className="inline-flex items-center gap-2 px-6 py-3.5 text-[15px] font-medium bg-foreground text-background rounded-2xl hover:bg-foreground/90 transition-all duration-200 active:scale-[0.97] w-full sm:w-auto justify-center"
           >
-            Browse Assets
+            Browse Scenepacks
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            href="/requests"
+            href="/assets"
             className="inline-flex items-center gap-2 px-6 py-3.5 text-[15px] font-medium border border-border bg-card/50 backdrop-blur-sm rounded-2xl hover:bg-secondary transition-all duration-200 active:scale-[0.97] w-full sm:w-auto justify-center"
           >
-            Request a Scenepack
+            Browse Assets
           </Link>
         </div>
 

@@ -9,9 +9,9 @@ const steps = [
   },
   {
     icon: Download,
-    title: 'Download or Buy',
+    title: 'Download',
     description:
-      'Get free scenepacks of your favourite movies or characters, or buy editing presets etc',
+      'Get free scenepacks of your favourite movies or characters, plus overlays, presets, and audio — all free.',
   },
   {
     icon: Palette,
