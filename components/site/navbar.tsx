@@ -5,11 +5,34 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useRouter, usePathname } from 'next/navigation';
-import { LogOut, User, Settings, Download, ChevronDown, ClipboardList, Store, Bell } from 'lucide-react';
+import {
+  LogOut,
+  User,
+  Settings,
+  Download,
+  ChevronDown,
+  ClipboardList,
+  Store,
+  Bell,
+  Menu,
+  Image as ImageIcon,
+  SlidersHorizontal,
+  Film,
+  Music2,
+} from 'lucide-react';
 import { useAdminAuth } from '@/hooks/use-admin-auth';
 import { useTheme } from 'next-themes';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { PROFILE } from '@/lib/profile';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from '@/components/ui/sheet';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -25,6 +48,13 @@ const navLinks = [
   { label: 'Presets', href: '/presets' },
   { label: 'Scenepacks', href: '/scenepacks' },
   { label: 'Audios', href: '/audios' },
+];
+
+const mobileNavLinks = [
+  { label: 'Assets', href: '/assets', icon: ImageIcon },
+  { label: 'Presets', href: '/presets', icon: SlidersHorizontal },
+  { label: 'Scenepacks', href: '/scenepacks', icon: Film },
+  { label: 'Audios', href: '/audios', icon: Music2 },
 ];
 
 export default function Navbar() {
@@ -54,16 +84,16 @@ export default function Navbar() {
           : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <nav className="mx-auto max-w-6xl px-6 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <Link href={isAuthed ? '/home' : '/'} className="flex items-center gap-2.5 group justify-self-start">
+        <Link href={isAuthed ? '/home' : '/'} className="group flex shrink-0 items-center gap-2.5">
           <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-105">
             <Image src="/logo.png" alt="EditHub" width={32} height={32} className="object-contain dark:invert" />
           </div>
         </Link>
 
         {/* Public library nav */}
-        <div className="hidden md:flex items-center justify-center gap-1 justify-self-center">
+        <div className="hidden items-center justify-center gap-1 md:flex">
             {navLinks.filter((link) => isAuthed || link.href !== '/home').map((link) => (
               <Link
                 key={link.href}
@@ -80,18 +110,59 @@ export default function Navbar() {
         </div>
 
         {/* Right actions */}
-        <div className="flex items-center gap-2 justify-self-end">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <Sheet>
+            <SheetTrigger asChild>
+              <button
+                type="button"
+                aria-label="Open navigation menu"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground md:hidden"
+              >
+                <Menu className="h-[18px] w-[18px]" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[min(88vw,22rem)] bg-background px-6 pt-16">
+              <SheetHeader className="mb-7 space-y-1 text-left">
+                <SheetTitle className="text-2xl">Browse EditHub</SheetTitle>
+                <SheetDescription>Find the tools and inspiration for your next edit.</SheetDescription>
+              </SheetHeader>
+              <div className="space-y-2">
+                {mobileNavLinks.map((link) => {
+                  const Icon = link.icon;
+                  const active = pathname === link.href;
+
+                  return (
+                    <SheetClose asChild key={link.href}>
+                      <Link
+                        href={link.href}
+                        className={`flex items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium transition-colors ${
+                          active
+                            ? 'bg-secondary text-foreground'
+                            : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                        }`}
+                      >
+                        <Icon className="h-5 w-5" />
+                        {link.label}
+                      </Link>
+                    </SheetClose>
+                  );
+                })}
+              </div>
+            </SheetContent>
+          </Sheet>
+
           {isAuthed ? (
             <>
               <Link
                 href="/notifications"
                 aria-label="Notifications"
-                className="relative inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground"
+                className="relative order-3 inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground md:order-none"
               >
                 <Bell className="h-4 w-4" />
                 <span className="absolute right-2 top-1.5 h-1.5 w-1.5 rounded-full bg-accent" />
               </Link>
-              <DropdownMenu>
+              <div className="order-2 md:order-none">
+                <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="inline-flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-secondary/60 transition-colors duration-200">
                   <Avatar className="w-8 h-8 border border-border/60">
@@ -162,7 +233,8 @@ export default function Navbar() {
                   Sign out
                 </DropdownMenuItem>
               </DropdownMenuContent>
-              </DropdownMenu>
+                </DropdownMenu>
+              </div>
             </>
           ) : (
             <>

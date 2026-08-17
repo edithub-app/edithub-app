@@ -104,14 +104,14 @@ export default function ProfilePage() {
 
   return (
     <AppShell>
-      <div className="px-6 pb-20">
+      <div className="px-4 pb-20 sm:px-6">
         <div className="mx-auto max-w-5xl">
           {/* Profile hero */}
           <div
-            className="relative overflow-hidden rounded-[28px] border border-white/10 px-3 pb-5 pt-3 text-white shadow-sm sm:px-5 sm:pb-7 sm:pt-5"
+            className="relative overflow-hidden rounded-[24px] border border-white/10 px-3 pb-4 pt-3 text-white shadow-sm sm:rounded-[28px] sm:px-5 sm:pb-7 sm:pt-5"
             style={{ backgroundColor: profile.backgroundColor }}
           >
-            <div className="relative h-48 overflow-hidden rounded-[20px] border border-white/10 sm:h-64">
+            <div className="relative aspect-[3/1] overflow-hidden rounded-[18px] border border-white/10 sm:h-64 sm:aspect-auto sm:rounded-[20px]">
               <img
                 src={profile.bannerUrl}
                 alt="Banner"
@@ -120,66 +120,69 @@ export default function ProfilePage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
             </div>
 
-            <div className="relative -mt-12 px-4 sm:-mt-16 sm:px-6">
+            <div className="relative -mt-10 px-2 sm:-mt-16 sm:px-6">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-                <Avatar
-                  className="h-24 w-24 rounded-full border-4 shadow-xl sm:h-32 sm:w-32"
-                  style={{ borderColor: profile.backgroundColor }}
-                >
-                  <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-                  <AvatarFallback>M</AvatarFallback>
-                </Avatar>
+                <div className="flex min-w-0 flex-1 items-end gap-3 sm:gap-4">
+                  <Avatar
+                    className="h-20 w-20 flex-none rounded-full border-4 shadow-xl sm:h-32 sm:w-32"
+                    style={{ borderColor: profile.backgroundColor }}
+                  >
+                    <AvatarImage src={profile.avatarUrl} alt={profile.name} />
+                    <AvatarFallback>M</AvatarFallback>
+                  </Avatar>
 
-                <div className="min-w-0 flex-1 pb-1 text-white">
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                    <h1 className="text-[22px] font-semibold tracking-tight">{profile.name}</h1>
-                    <p className="text-[14px] text-white/60">{profile.handle}</p>
-                  </div>
-                  <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px] text-white/65">
-                    {socialLinks.map((social) => {
-                      const SocialIcon = social.icon;
-                      return (
-                        <a
-                          key={social.id}
-                          href={social.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
-                        >
-                          <SocialIcon className="h-3.5 w-3.5" /> {social.title}
-                        </a>
-                      );
-                    })}
+                  <div className="min-w-0 flex-1 pb-1 text-white">
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                      <h1 className="text-[21px] font-semibold tracking-tight sm:text-[22px]">{profile.name}</h1>
+                      <p className="text-[13px] text-white/60 sm:text-[14px]">{profile.handle}</p>
+                    </div>
+                    <div className="mt-1.5 flex max-w-full flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[12px] text-white/65 sm:mt-2 sm:gap-x-3 sm:text-[13px]">
+                      {socialLinks.map((social) => {
+                        const SocialIcon = social.icon;
+                        return (
+                          <a
+                            key={social.id}
+                            href={social.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex max-w-full items-center gap-1.5 truncate transition-colors hover:text-white"
+                          >
+                            <SocialIcon className="h-3.5 w-3.5 flex-none" />
+                            <span className="truncate">{social.title}</span>
+                          </a>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:items-center">
                   <Link
                     href="/settings"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-[14px] font-medium text-white transition-all hover:bg-white/15"
+                    className="inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/10 px-2 py-2.5 text-[12px] font-medium text-white transition-all hover:bg-white/15 sm:gap-2 sm:px-4 sm:text-[14px]"
                   >
                     <Pencil className="h-3.5 w-3.5" />
-                    Edit account
+                    <span className="truncate">Edit account</span>
                   </Link>
                   <button
                     type="button"
                     onClick={handleBoost}
                     disabled={!boostAvailable}
                     title={boostAvailable ? 'Boost your profile' : `Available again in ${boostDaysRemaining} days`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-[14px] font-medium text-[#1d1717] transition-all hover:bg-white/90 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-white px-2 py-2.5 text-[12px] font-medium text-[#1d1717] transition-all hover:bg-white/90 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60 sm:gap-2 sm:px-4 sm:text-[14px]"
                   >
-                    {boostAvailable ? 'Boost profile' : `Boost in ${boostDaysRemaining}d`}
+                    <span className="truncate">{boostAvailable ? 'Boost profile' : `Boost in ${boostDaysRemaining}d`}</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setFollowing((v) => !v)}
-                    className={`inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-[14px] font-medium transition-all duration-200 active:scale-[0.97] ${
+                    className={`inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-[12px] font-medium transition-all duration-200 active:scale-[0.97] sm:gap-2 sm:px-5 sm:text-[14px] ${
                       following
                         ? 'border border-white/20 bg-white/10 text-white hover:bg-white/15'
                         : 'bg-white text-[#1d1717] hover:bg-white/90'
                     }`}
                   >
-                    {following ? 'Following' : 'Follow'}
+                    <span className="truncate">{following ? 'Following' : 'Follow'}</span>
                   </button>
                 </div>
               </div>
@@ -187,15 +190,15 @@ export default function ProfilePage() {
           </div>
 
           {/* Stats */}
-          <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="mt-5 grid grid-cols-2 gap-2.5 sm:mt-8 sm:grid-cols-4 sm:gap-3">
             {stats.map((s) => {
               const card = (
-                <div className="rounded-2xl border border-border/60 bg-card/50 p-4 text-left">
+                <div className="rounded-2xl border border-border/60 bg-card/50 p-3.5 text-left sm:p-4">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <s.icon className="w-4 h-4" />
-                    <span className="text-[12px] font-medium uppercase tracking-wide">{s.label}</span>
+                    <s.icon className="h-4 w-4 flex-none" />
+                    <span className="truncate text-[11px] font-medium uppercase tracking-wide sm:text-[12px]">{s.label}</span>
                   </div>
-                  <p className="mt-2 text-[22px] font-semibold tracking-tight">{s.value}</p>
+                  <p className="mt-1.5 text-[21px] font-semibold tracking-tight sm:mt-2 sm:text-[22px]">{s.value}</p>
                 </div>
               );
 
@@ -248,17 +251,19 @@ export default function ProfilePage() {
           </div>
 
           {/* Tabs */}
-          <div className="mt-10">
+          <div className="mt-7 sm:mt-10">
             <Tabs defaultValue="assets">
-              <TabsList className="flex-wrap bg-secondary/50">
-                <TabsTrigger value="assets">Assets</TabsTrigger>
-                <TabsTrigger value="scenepacks">Scenepacks</TabsTrigger>
-                <TabsTrigger value="presets">Presets</TabsTrigger>
-                <TabsTrigger value="audios">Audios</TabsTrigger>
-                <TabsTrigger value="reviews">Reviews</TabsTrigger>
-                <TabsTrigger value="requests">Requests</TabsTrigger>
-                <TabsTrigger value="answers">Answers</TabsTrigger>
-              </TabsList>
+              <div className="-mx-4 overflow-x-auto px-4 pb-1 scrollbar-none sm:mx-0 sm:overflow-visible sm:px-0">
+                <TabsList className="flex h-11 w-max min-w-full flex-nowrap justify-start bg-secondary/50 sm:w-auto sm:min-w-0 sm:flex-wrap">
+                  <TabsTrigger className="shrink-0 px-3 text-[13px] sm:px-3.5 sm:text-sm" value="assets">Assets</TabsTrigger>
+                  <TabsTrigger className="shrink-0 px-3 text-[13px] sm:px-3.5 sm:text-sm" value="scenepacks">Scenepacks</TabsTrigger>
+                  <TabsTrigger className="shrink-0 px-3 text-[13px] sm:px-3.5 sm:text-sm" value="presets">Presets</TabsTrigger>
+                  <TabsTrigger className="shrink-0 px-3 text-[13px] sm:px-3.5 sm:text-sm" value="audios">Audios</TabsTrigger>
+                  <TabsTrigger className="shrink-0 px-3 text-[13px] sm:px-3.5 sm:text-sm" value="reviews">Reviews</TabsTrigger>
+                  <TabsTrigger className="shrink-0 px-3 text-[13px] sm:px-3.5 sm:text-sm" value="requests">Requests</TabsTrigger>
+                  <TabsTrigger className="shrink-0 px-3 text-[13px] sm:px-3.5 sm:text-sm" value="answers">Answers</TabsTrigger>
+                </TabsList>
+              </div>
 
               <TabsContent value="assets" className="mt-6">
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
