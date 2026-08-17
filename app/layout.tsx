@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://edithub.app'),
-  title: 'EditHub — The hub for creative editors',
+  title: 'EditHub — Marketplace for creative editors',
   description:
     'Discover free scenepacks, buy premium editing assets, and request clips from your favourite movies and shows. Built for creative editors.',
   openGraph: {

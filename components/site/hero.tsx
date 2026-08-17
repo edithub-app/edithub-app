@@ -16,7 +16,7 @@ export default function Hero() {
 
         {/* Headline */}
         <h1 className="text-[clamp(2.5rem,6vw,4.5rem)] font-semibold tracking-[-0.03em] leading-[1.05] text-balance animate-fade-up">
-          The hub for creative
+          Marketplace for creative
           <br />
           editors.
         </h1>
@@ -26,7 +26,7 @@ export default function Hero() {
           className="mt-6 text-[18px] md:text-[19px] text-muted-foreground leading-relaxed max-w-xl mx-auto text-balance animate-fade-up"
           style={{ animationDelay: '80ms' }}
         >
-          Discover free scenepacks, overlays, presets, and audio for your
+          Discover scenepacks, overlays, presets, and audio for your
           edits — all in one place.
         </p>
 
@@ -57,7 +57,7 @@ export default function Hero() {
         >
           <Info className="w-3.5 h-3.5" />
           <span>
-            Scenepacks are free due to copyright (not tryna get sued🙏)
+            Scenepacks, audios and certain assets are free due to copyright (not tryna get sued🙏)
           </span>
         </div>
       </div>

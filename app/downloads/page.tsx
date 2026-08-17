@@ -32,7 +32,7 @@ const items: DownloadItem[] = [
   { id: 'd8', title: 'Trap SFX Pack', thumbnail_url: mockAudios[2].thumbnail_url, date: '2026-07-10', type: 'audio', href: `/audios/${mockAudios[2].id}` },
 ];
 
-export default function AccountPage() {
+export default function DownloadsPage() {
   const [search, setSearch] = useState('');
 
   const filtered = items.filter((p) =>
@@ -69,7 +69,7 @@ export default function AccountPage() {
     <AppShell>
       <div className="px-6 pb-20">
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-[26px] font-semibold tracking-tight">Account</h1>
+          <h1 className="text-[26px] font-semibold tracking-tight">Downloads</h1>
           <p className="mt-1 text-[14px] text-muted-foreground">
             Everything you have downloaded.
           </p>
