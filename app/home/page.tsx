@@ -224,7 +224,7 @@ export default function HomePage() {
           <section className="mt-14 animate-fade-up" style={{ animationDelay: '140ms' }}>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-[20px] font-semibold tracking-tight">New creators</h2>
+                <h2 className="text-[20px] font-semibold tracking-tight">Suggested creators</h2>
                 <p className="mt-1 text-[13px] text-muted-foreground">
                   Find fresh inspiration from the EditHub community.
                 </p>
